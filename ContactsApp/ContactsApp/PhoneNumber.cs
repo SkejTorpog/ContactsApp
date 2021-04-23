@@ -6,18 +6,46 @@ using System.Text;
 
 namespace ContactsApp
 {
+    /// <summary>
+    /// Класс хранящий номер контакта.
+    /// </summary>
     public class PhoneNumber
     {
         private long _number;
 
-        public void SetNumber(long number)
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        public PhoneNumber(long number)
         {
-            string num = number.ToString();
-            if (num.Length != 11 || num[0] != '7')
+            Console.WriteLine("Конструктор номера сработал!");
+            Number = number;
+        }
+
+        /// <summary>
+        /// Конструктор класса по умолчанию
+        /// </summary>
+        public PhoneNumber()
+        {
+            
+        }
+
+        /// <summary>
+        /// Возвращает и задает Номер телефона контакта. Номер не должен превышать 11 символов и начинаться с 7
+        /// </summary>
+        public long Number
+        {
+            get { return _number;}
+            set
             {
-                throw new Exception("Nea!");
+                string num = value.ToString();
+                if (num.Length != 11 || num[0] != '7')
+                {
+                    throw new ArgumentException("Nea!");
+                }
+
+                _number = value;
             }
-  
         }
     }
 }
