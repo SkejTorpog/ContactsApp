@@ -14,6 +14,34 @@ namespace ContactsApp
     /// </summary>
     public static class ProjectManager
     {
-       
+
+        /// <summary>
+        /// Сериализация
+        /// </summary>
+        public static void SaveToFile(Project data, string filename)
+        {
+
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter sw = new StreamWriter(filename))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, data);
+            }
+        }
+
+        /// <summary>
+        /// Дессериализация
+        /// </summary>
+        public static Project LoadFromFile(string filename)
+        {
+
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamReader sr = new StreamReader(filename))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                return (Project)serializer.Deserialize<Project>(reader);
+            }
+
+        }
     }
 }
