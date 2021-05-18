@@ -12,13 +12,12 @@ namespace ContactsApp
     public class PhoneNumber
     {
         private long _number;
-
+     
         /// <summary>
         /// Конструктор класса
         /// </summary>
         public PhoneNumber(long number)
         {
-            Console.WriteLine("Конструктор номера сработал!");
             Number = number;
         }
 
@@ -41,7 +40,7 @@ namespace ContactsApp
                 string num = value.ToString();
                 if (num.Length != 11 || num[0] != '7')
                 {
-                    throw new ArgumentException("Nea!");
+                    throw new ArgumentException("Кол-во символов не равно 11, либо номер начинается не с 7");
                 }
 
                 _number = value;

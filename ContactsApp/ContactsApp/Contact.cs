@@ -30,11 +30,22 @@ namespace ContactsApp
             _vkID = vkID;
         }
 
+        public Contact()
+        {
+
+        }
+
         /// <summary>
         /// Возвращает номер контакта
         /// </summary>
         public PhoneNumber Number
-        { get { return _number; } }
+        { 
+            get { return _number; } 
+            set 
+            {
+                _number = value;
+            } 
+        }
 
         /// <summary>
         /// Возвращает и задает фамилию контакта. Длина фамилии не должна превышать 50-ти символов
@@ -115,7 +126,7 @@ namespace ContactsApp
             get { return _birthDateTime; }
             set
             {
-                if (value < new DateTime(1900, 0, 0) || value > DateTime.Now)
+                if (value < new DateTime(1900, 1, 1) || value > DateTime.Now)
                 {
                     throw new Exception("Даты выставлена неправильно");
                 }
