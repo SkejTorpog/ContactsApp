@@ -113,9 +113,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\базар.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\plus.png" />
   </ItemGroup>
   <ItemGroup>

@@ -31,12 +31,21 @@ namespace ContactsAppUI
             VkIdTextBox.ReadOnly = true;
 
             // Выгрузка сохраненных контактов
-            prog = ProjectManager.LoadFromFile(filename);
-            
-            // Цикл для вывода всех сохраненных в файле контактов на ЛистБокс
-            for(int i = 0; i<prog.contactsList.Count; i++)  
+            //ProjectManager.SaveToFile(prog,filename);
+            //prog = ProjectManager.LoadFromFile(filename);
+            if (ProjectManager.LoadFromFile(filename) == null)
             {
-                ContactsListBox.Items.Add(prog.contactsList[i].Surname);
+                
+                ProjectManager.SaveToFile(prog, filename);
+            }
+            else 
+            {
+                prog = ProjectManager.LoadFromFile(filename);
+                // Цикл для вывода всех сохраненных в файле контактов на ЛистБокс
+                for (int i = 0; i < prog.contactsList.Count; i++)
+                {
+                    ContactsListBox.Items.Add(prog.contactsList[i].Surname);
+                }
             }
             //prog.contactsList.Add((new Contact("Ivanov", "Sergey", new PhoneNumber(71234567891), new DateTime(2001, 11, 5), "IvSerg@mail.ru", 3455334)));
             //prog.contactsList.Add((new Contact("Petrov", "Oleg", new PhoneNumber(71234567891), new DateTime(2001, 4, 18), "IvOleg@mail.ru", 3455334)));

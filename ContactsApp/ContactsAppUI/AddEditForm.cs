@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -50,8 +51,6 @@ namespace ContactsAppUI
             try
             {
                
-
-               
                 _contact.Surname = this.SurnameTextBox.Text;
                 OkButton.Enabled = true;
 
@@ -59,8 +58,9 @@ namespace ContactsAppUI
             catch
             {
                 SurnameTextBox.BackColor = Color.LightPink;
-                OkButton.Enabled = false;
+                //OkButton.Enabled = false;
             }
+            ErrorCheck();
         }
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
@@ -74,8 +74,9 @@ namespace ContactsAppUI
             catch
             {
                 NameTextBox.BackColor = Color.LightPink;
-                OkButton.Enabled = false;
+                //OkButton.Enabled = false;
             }
+            ErrorCheck();
         }
 
         private void OkButton_Click(object sender, EventArgs e)
@@ -103,8 +104,10 @@ namespace ContactsAppUI
             catch
             {
                 BirthdayDateTimePicker.CalendarTitleBackColor = Color.LightPink;
-                OkButton.Enabled = false;
+                //OkButton.Enabled = false;
+                Console.WriteLine(BirthdayDateTimePicker.CalendarTitleBackColor);
             }
+            ErrorCheck();
         }
 
         private void PhoneTextBox_TextChanged(object sender, EventArgs e)
@@ -112,17 +115,15 @@ namespace ContactsAppUI
             PhoneTextBox.BackColor = Color.White;
             try
             {
-
-               
                 _contact.Number = new PhoneNumber( Int64.Parse(PhoneTextBox.Text));
                 OkButton.Enabled = true;
             }
             catch
             {
                 PhoneTextBox.BackColor = Color.LightPink;
-                OkButton.Enabled = false;
+                //OkButton.Enabled = false;
             }
-            
+            ErrorCheck();
         }
 
         private void MailTextBox_TextChanged(object sender, EventArgs e)
@@ -136,8 +137,9 @@ namespace ContactsAppUI
             catch
             {
                 MailTextBox.BackColor = Color.LightPink;
-                OkButton.Enabled = false;
+                //OkButton.Enabled = false;
             }
+            ErrorCheck();
         }
 
         private void VkIdTextBox_TextChanged(object sender, EventArgs e)
@@ -151,14 +153,65 @@ namespace ContactsAppUI
             catch
             {
                 VkIdTextBox.BackColor = Color.LightPink;
-                OkButton.Enabled = false;
+                //OkButton.Enabled = false;
             }
-            
+            ErrorCheck();
         }
 
         private void AddEditForm_Load(object sender, EventArgs e)
         {
+            ErrorCheck();
 
         }
+
+        private void ErrorCheck()
+        {
+            if (NameTextBox.BackColor == Color.LightPink)
+            {
+                OkButton.Enabled = false;
+            }
+            if (SurnameTextBox.BackColor == Color.LightPink)
+            {
+                OkButton.Enabled = false;
+            }
+            if (PhoneTextBox.BackColor == Color.LightPink)
+            {
+                OkButton.Enabled = false;
+            }
+            if (BirthdayDateTimePicker.CalendarTitleBackColor == Color.LightPink)
+            {
+                OkButton.Enabled = false;
+            }
+            if (MailTextBox.BackColor == Color.LightPink)
+            {
+                OkButton.Enabled = false;
+            }
+            if (VkIdTextBox.BackColor == Color.LightPink)
+            {
+                OkButton.Enabled = false;
+            }
+            //////////////
+            if (SurnameTextBox.Text.Length == 0)
+            {
+                OkButton.Enabled = false;
+            }
+            if (NameTextBox.Text.Length == 0)
+            {
+                OkButton.Enabled = false;
+            }
+            if (PhoneTextBox.Text.Length == 0)
+            {
+                OkButton.Enabled = false;
+            }
+            if (MailTextBox.Text.Length == 0)
+            {
+                OkButton.Enabled = false;
+            }
+            if (VkIdTextBox.Text.Length == 0)
+            {
+                OkButton.Enabled = false;
+            }
+        }
+
     }
 }
