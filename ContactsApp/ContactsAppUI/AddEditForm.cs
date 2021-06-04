@@ -57,8 +57,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                SurnameTextBox.BackColor = Color.LightPink;
-                //OkButton.Enabled = false;
+                SurnameTextBox.BackColor = Color.LightPink;                
             }
             ErrorCheck();
         }
@@ -73,8 +72,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                NameTextBox.BackColor = Color.LightPink;
-                //OkButton.Enabled = false;
+                NameTextBox.BackColor = Color.LightPink;                
             }
             ErrorCheck();
         }
@@ -103,8 +101,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                BirthdayDateTimePicker.CalendarTitleBackColor = Color.LightPink;
-                //OkButton.Enabled = false;
+                BirthdayDateTimePicker.CalendarTitleBackColor = Color.LightPink;                
                 Console.WriteLine(BirthdayDateTimePicker.CalendarTitleBackColor);
             }
             ErrorCheck();
@@ -120,8 +117,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                PhoneTextBox.BackColor = Color.LightPink;
-                //OkButton.Enabled = false;
+                PhoneTextBox.BackColor = Color.LightPink;                
             }
             ErrorCheck();
         }
@@ -136,8 +132,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                MailTextBox.BackColor = Color.LightPink;
-                //OkButton.Enabled = false;
+                MailTextBox.BackColor = Color.LightPink;                
             }
             ErrorCheck();
         }
@@ -152,8 +147,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                VkIdTextBox.BackColor = Color.LightPink;
-                //OkButton.Enabled = false;
+                VkIdTextBox.BackColor = Color.LightPink;                
             }
             ErrorCheck();
         }
@@ -190,7 +184,7 @@ namespace ContactsAppUI
             {
                 OkButton.Enabled = false;
             }
-            //////////////
+            //------------ Блокировка кнопки-----------
             if (SurnameTextBox.Text.Length == 0)
             {
                 OkButton.Enabled = false;
@@ -211,7 +205,6 @@ namespace ContactsAppUI
             {
                 OkButton.Enabled = false;
             }
-        }
-
+        }        
     }
 }

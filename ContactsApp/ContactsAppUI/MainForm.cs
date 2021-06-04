@@ -17,52 +17,49 @@ namespace ContactsAppUI
     public partial class MainForm : System.Windows.Forms.Form
     {
         Project prog = new Project();
+        List<Contact> list = new List<Contact>(200);
+        
         string filename = "C:\\Users\\AlischRak9\\Desktop\\teta.notes";
         public MainForm()
         {
             InitializeComponent();
-            
-
+           
             NameTextBox.ReadOnly = true;
             SurnameTextBox.ReadOnly = true;
-            BirthdayDateTimePicker.Enabled = false;
+            BirthdayDateTimePicker.Enabled = false;            
             PhoneTextBox.ReadOnly = true;
             MailTextBox.ReadOnly = true;
             VkIdTextBox.ReadOnly = true;
 
-            // Выгрузка сохраненных контактов
-            //ProjectManager.SaveToFile(prog,filename);
-            //prog = ProjectManager.LoadFromFile(filename);
-            if (ProjectManager.LoadFromFile(filename) == null)
+            // Выгрузка сохраненных контактов            
+            prog = ProjectManager.LoadFromFile(filename);
+            prog.Assort();
+            // Цикл для вывода всех сохраненных в файле контактов на ЛистБокс
+            for (int i = 0; i < prog.contactsList.Count; i++)
             {
-                
-                ProjectManager.SaveToFile(prog, filename);
-            }
-            else 
-            {
-                prog = ProjectManager.LoadFromFile(filename);
-                // Цикл для вывода всех сохраненных в файле контактов на ЛистБокс
-                for (int i = 0; i < prog.contactsList.Count; i++)
-                {
-                    ContactsListBox.Items.Add(prog.contactsList[i].Surname);
-                }
-            }
-            //prog.contactsList.Add((new Contact("Ivanov", "Sergey", new PhoneNumber(71234567891), new DateTime(2001, 11, 5), "IvSerg@mail.ru", 3455334)));
-            //prog.contactsList.Add((new Contact("Petrov", "Oleg", new PhoneNumber(71234567891), new DateTime(2001, 4, 18), "IvOleg@mail.ru", 3455334)));
-            //prog.contactsList.Add((new Contact("Gribnov", "Obrek", new PhoneNumber(71234567891), new DateTime(2001, 4, 5), "IvObrek@mail.ru", 3455334)));
-            //prog.contactsList.Add((new Contact("Panov", "Alek", new PhoneNumber(71234567891), new DateTime(2001, 10, 2), "IvAlek@mail.ru", 3455334)));
-            //prog.contactsList.Add((new Contact("Gribanov", "Aleg", new PhoneNumber(71234567891), new DateTime(2001, 9, 4), "IvAleg@mail.ru", 3455334)));
-
-            //ContactsListBox.Items.Add(new Contact("Ivanov", "Sergey", new PhoneNumber(71234567891), new DateTime(2001, 11, 5), "IvSerg@mail.ru", 3455334).Surname);
-            //ContactsListBox.Items.Add(new Contact("Petrov", "Oleg", new PhoneNumber(71234567891), new DateTime(2001, 4, 18), "IvOleg@mail.ru", 3455334).Surname);
-            //ContactsListBox.Items.Add(new Contact("Gribnov", "Obrek", new PhoneNumber(71234567891), new DateTime(2001, 4, 5), "IvObrek@mail.ru", 3455334).Surname);
-            //ContactsListBox.Items.Add(new Contact("Panov", "Alek", new PhoneNumber(71234567891), new DateTime(2001, 10, 2), "IvAlek@mail.ru", 3455334).Surname);
-            //ContactsListBox.Items.Add(new Contact("Gribanov", "Aleg", new PhoneNumber(71234567891), new DateTime(2001, 9, 4), "IvAleg@mail.ru", 3455334).Surname);
+                ContactsListBox.Items.Add(prog.contactsList[i].Surname);
+            }            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            ContactsListBox.SelectedIndex = 0;
+            var list1 = prog.ShowBirthdayPeople(DateTime.Now);
+            if (list1.Count != 0)
+            {
+                Console.WriteLine(list1.Count);
+                for (int i = 0; i < list1.Count; i++)
+                {
+                    if (i != list1.Count-1)
+                    {
+                        BirthDaySurnameLabel.Text = BirthDaySurnameLabel.Text + list1[i].Surname + ", ";
+                    }
+                    else
+                    {                        
+                        BirthDaySurnameLabel.Text = BirthDaySurnameLabel.Text + list1[i].Surname;
+                    }
+                }
+            } 
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
@@ -75,119 +72,123 @@ namespace ContactsAppUI
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
        
 
         private void AddContactButton_Click(object sender, EventArgs e)
-        {
+        {                        
             AddEditForm form1 = new AddEditForm();
             form1.ShowDialog();
-
             
             var surname = form1.Contact.Surname;
             if (form1.DialogResult == DialogResult.OK)
             {
-                ContactsListBox.Items.Add(surname);
+                //ContactsListBox.Items.Add(surname);                
                 prog.contactsList.Add(form1.Contact);
+                prog.Assort();
+                RefreshContactListBox();
                 //Сохранение после добавления контакта
                 ProjectManager.SaveToFile(prog, filename); 
             }
-            
-        }
-
-        private void SurnameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //SurnameTextBox.Text = prog.contactsList[ContactsListBox.SelectedIndex]
-        }
-        
-        private void ContactsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {     
-            var selectedIndex = ContactsListBox.SelectedIndex;
-            if (selectedIndex == -1 )   // Не реагировать, если индекс ListBox = -1
+            if (FindTextBox.Text.Length != 0)
             {
-               
-                return;
+                var text = FindTextBox.Text;
+                FindTextBox.Text = null;
+                FindTextBox.Text = text;
             }
-            SurnameTextBox.Text = prog.contactsList[selectedIndex].Surname;
-            NameTextBox.Text = prog.contactsList[selectedIndex].Name;
-            BirthdayDateTimePicker.Value = prog.contactsList[selectedIndex].BirthDateTime ;
-            PhoneTextBox.Text = prog.contactsList[selectedIndex].Number.Number.ToString();
-            MailTextBox.Text = prog.contactsList[selectedIndex].Mail;
-            VkIdTextBox.Text ="id" + prog.contactsList[selectedIndex].VkID.ToString() ;          
-        }
+        }        
 
         private void EditContactButton_Click(object sender, EventArgs e)
         {
+            Contact selectedData = new Contact();
+            Contact unupdatedData = new Contact();
             var selectedIndex = ContactsListBox.SelectedIndex;
             if (selectedIndex == -1 )
             {
                 MessageBox.Show("Выберите контакт");
                 return;     
             }
-
-            // Сохраняем исходные значения
-            var nameIfCancel = prog.contactsList[selectedIndex].Name;
-            var surnameIfCancel = prog.contactsList[selectedIndex].Surname;
-            var numberIfCancel = prog.contactsList[selectedIndex].Number.Number;
-            var dateIfCancel = prog.contactsList[selectedIndex].BirthDateTime;
-            var mailIfCancel = prog.contactsList[selectedIndex].Mail;
-            var vkIdIfCancel = prog.contactsList[selectedIndex].VkID;
-
-            AddEditForm form1 = new AddEditForm();
-            form1.Contact = prog.contactsList[selectedIndex];
-            form1.ShowDialog();
-           
-            if (form1.DialogResult == DialogResult.OK)
+            if (FindTextBox.Text.Length == 0)
             {
-                var updatedData = form1.Contact;
-                ContactsListBox.Items.RemoveAt(selectedIndex);
-                prog.contactsList.RemoveAt(selectedIndex);
-
-                prog.contactsList.Insert(selectedIndex, updatedData);
-                ContactsListBox.Items.Insert(selectedIndex, updatedData.Surname);
-                //Сохранение после редактирования контакта
-                ProjectManager.SaveToFile(prog, filename);         
+                selectedData = (Contact)prog.contactsList[selectedIndex].Clone();
             }
             else
             {
-                // Возвращаем исходные
-                prog.contactsList[selectedIndex].Name = nameIfCancel;
-                prog.contactsList[selectedIndex].Surname = surnameIfCancel;
-                prog.contactsList[selectedIndex].Number.Number = numberIfCancel;
-                prog.contactsList[selectedIndex].BirthDateTime = dateIfCancel;
-                prog.contactsList[selectedIndex].Mail = mailIfCancel;
-                prog.contactsList[selectedIndex].VkID = vkIdIfCancel;               
-            }
+                selectedData = (Contact)list[selectedIndex].Clone();
+                unupdatedData = list[selectedIndex];
+            }            
             
+            AddEditForm form = new AddEditForm();
+            form.Contact = selectedData;
+            form.ShowDialog();
+            var updatedData = form.Contact;
+
+            if (form.DialogResult == DialogResult.OK)
+            {                
+                if (FindTextBox.Text.Length == 0)
+                {
+                    prog.contactsList.RemoveAt(selectedIndex);
+                    prog.contactsList.Insert(selectedIndex, updatedData);                    
+                    prog.Assort();
+                    RefreshContactListBox();
+                }
+                if (FindTextBox.Text.Length != 0)
+                {                                                                                              
+                    list.Remove(unupdatedData);
+                    list.Add(updatedData);
+                    
+                    prog.contactsList.Remove(unupdatedData);
+                    prog.contactsList.Add(updatedData);
+                    prog.Assort();
+
+                    var text = FindTextBox.Text;
+                    FindTextBox.Text = null;
+                    FindTextBox.Text = text;                    
+                }
+                ProjectManager.SaveToFile(prog, filename);
+            }
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i].Surname);
+            }
+            Console.WriteLine("______________prog______________");
+            for (int i = 0; i < prog.contactsList.Count; i++)
+            {
+                Console.WriteLine(prog.contactsList[i].Surname);
+            }
+            Console.WriteLine("______________end______________");
         }
 
-        private void BirthdayDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-        
         private void RemoveContactButton_Click(object sender, EventArgs e)
         {
-
-            var selectedIndex = ContactsListBox.SelectedIndex;
+            var selectedIndex = ContactsListBox.SelectedIndex;          
             if (selectedIndex == -1)
             {
                 MessageBox.Show("Вы не выбрали контакт");
                 return;
             }
-            DialogResult result = MessageBox.Show("Do you really want to delete " + prog.contactsList[selectedIndex].Surname, "Delete", MessageBoxButtons.OKCancel);
+
+            Contact selectedData = new Contact();
+            selectedData = FindTextBox.Text.Length != 0 ? list[selectedIndex] : prog.contactsList[selectedIndex];
+            DialogResult result = MessageBox.Show("Do you really want to delete " + selectedData.Surname, "Delete", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                prog.contactsList.RemoveAt(selectedIndex);
-                ContactsListBox.Items.RemoveAt(selectedIndex);
-                //Сохранение после удаления
-                ProjectManager.SaveToFile(prog, filename);
-            }
-
+                if (FindTextBox.Text.Length != 0)
+                {                  
+                    
+                    list.Remove(selectedData);
+                    ContactsListBox.Items.RemoveAt(selectedIndex);                    
+                    prog.contactsList.Remove(selectedData);
+                    //Сохранение после удаления
+                    ProjectManager.SaveToFile(prog, filename);
+                }
+                else
+                {
+                    prog.contactsList.RemoveAt(selectedIndex);
+                    ContactsListBox.Items.RemoveAt(selectedIndex);
+                    //Сохранение после удаления
+                    ProjectManager.SaveToFile(prog, filename);
+                }
+            }                      
         }
        
         private void AddToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -203,10 +204,7 @@ namespace ContactsAppUI
         private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
         {
                 RemoveContactButton_Click(sender, e);
-        }
-
-
-       
+        }       
 
         private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -219,13 +217,58 @@ namespace ContactsAppUI
             form2.Show();
         }
 
-        private void splitContainer1_Panel2_Paint_1(object sender, PaintEventArgs e)
+        private void RefreshContactListBox()
         {
-
+            ContactsListBox.Items.Clear();
+            for (int i = 0; i < prog.contactsList.Count; i++)
+            {
+                ContactsListBox.Items.Add(prog.contactsList[i].Surname);                
+            }
         }
 
-        
+        private void ContactsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedIndex = ContactsListBox.SelectedIndex;
+            if (selectedIndex == -1)  // Игнорировать, если индекс = -1
+            {
+                return;
+            }
+            if (FindTextBox.Text.Length == 0)
+            {
+                SurnameTextBox.Text = prog.contactsList[selectedIndex].Surname;
+                NameTextBox.Text = prog.contactsList[selectedIndex].Name;
+                BirthdayDateTimePicker.Value = prog.contactsList[selectedIndex].BirthDateTime;
+                PhoneTextBox.Text = prog.contactsList[selectedIndex].Number.Number.ToString();
+                MailTextBox.Text = prog.contactsList[selectedIndex].Mail;
+                VkIdTextBox.Text = "id" + prog.contactsList[selectedIndex].VkID.ToString();
+            }
+            else
+            {
+                SurnameTextBox.Text = list[selectedIndex].Surname;
+                NameTextBox.Text = list[selectedIndex].Name;
+                BirthdayDateTimePicker.Value = list[selectedIndex].BirthDateTime;
+                PhoneTextBox.Text = list[selectedIndex].Number.Number.ToString();
+                MailTextBox.Text = list[selectedIndex].Mail;
+                VkIdTextBox.Text = "id" + list[selectedIndex].VkID.ToString();
+            }    
+        }
+
+        private void FindTextBox_TextChanged_1(object sender, EventArgs e)
+        {                     
+            list = prog.Assort(FindTextBox.Text);
+            ContactsListBox.Items.Clear();
+            for (int i = 0; i < list.Count; i++)
+            {
+                ContactsListBox.Items.Add(list[i].Surname);
+            }                        
+        }
+
+        private void ContactsListBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                RemoveContactButton_Click(sender, e);
+            }            
+        }       
     }
-
-
 }

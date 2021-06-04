@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization.Json;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.IO;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace ContactsApp
 {
     /// <summary>
     /// Класс, сериализующий список контактов
     /// </summary>
-    public static class ProjectManager
+    public class ProjectManager
     {
-
         /// <summary>
         /// Сериализация
         /// </summary>
@@ -33,15 +32,32 @@ namespace ContactsApp
         /// Дессериализация
         /// </summary>
         public static Project LoadFromFile(string filename)
-        {
+        {  
 
-            JsonSerializer serializer = new JsonSerializer();
-            using (StreamReader sr = new StreamReader(filename))
-            using (JsonReader reader = new JsonTextReader(sr))
+            try
             {
-                return (Project)serializer.Deserialize<Project>(reader);
+                JsonSerializer serializer = new JsonSerializer();
+                using (StreamReader sr = new StreamReader(filename))
+                using (JsonReader reader = new JsonTextReader(sr))
+                {
+                Project prog = new Project();
+                prog = (Project)serializer.Deserialize<Project>(reader);                
+                if (prog == null)             
+                {
+                    Project emptyProject = new Project();
+                    return emptyProject;
+                }
+                //return (Project)serializer.Deserialize<Project>(reader); Почему не работает?
+                // И выдает ошибку, если использовать (Project)serializer... вместо prog 
+                return prog;
+                }
             }
-
+            catch (Exception e)
+            {
+                Project emptyProject = new Project();
+                Console.WriteLine(e.Message);
+                return emptyProject;
+            }
         }
     }
 }

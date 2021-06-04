@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContactsApp\ContactsApp.csproj">
-      <Project>{9c9991ae-5443-4c6f-a0ef-2376f98346bf}</Project>
+      <Project>{41da7711-4791-4655-890d-c3f9b50c1251}</Project>
       <Name>ContactsApp</Name>
     </ProjectReference>
   </ItemGroup>
