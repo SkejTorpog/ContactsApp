@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactsApp
 {
+/// <summary>
+///     
+/// </summary>
     public class PhoneNumber
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private long _number;
 
         /// <summary>
@@ -21,8 +23,10 @@ namespace ContactsApp
                 string num = value.ToString();
                 if (num.Length != 11 || num[0] != '7')
                 {
-                    throw new ArgumentException($"Кол-во символов должно быть равно 11, и номер должен начинаться с 7. " +
-                        $"Введеное кол-во символов: {value.ToString().Length}, первая цифра: {value.ToString()[0]} ");
+                    throw new ArgumentException(
+                        $"Кол-во символов должно быть равно 11, и номер должен начинаться с 7. " +
+                        $"Введеное кол-во символов: {value.ToString().Length}," +
+                        $" первая цифра: {value.ToString()[0]} ");
                 }
 
                 _number = value;
@@ -38,7 +42,7 @@ namespace ContactsApp
         }
 
         /// <summary>
-        /// Конструктор класса по умолчанию
+        /// Конструктор класса без параметров
         /// </summary>
         public PhoneNumber()
         {

@@ -20,8 +20,7 @@ namespace ContactsApp1
         /// Конструктор для контакта
         /// </summary>
         public Contact(string surname, string name, PhoneNumber number, DateTime birthDateTime, string mail, long vkID)
-        {
-            
+        {            
             _surname = surname;
             _name = name;
             _number = number;

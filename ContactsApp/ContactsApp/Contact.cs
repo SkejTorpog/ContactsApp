@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ContactsApp
 {
@@ -11,16 +8,34 @@ namespace ContactsApp
     /// </summary>
     public class Contact: ICloneable,IComparable
     {
+        /// <summary>
+        /// Поле, хранящее фамилию контакта
+        /// </summary>
         private string _surname;
+        /// <summary>
+        /// Поле, хранящее имя контакта
+        /// </summary>
         private string _name;
+        /// <summary>
+        /// Поле, хранящее номер контакта
+        /// </summary>
         private PhoneNumber _number;
-        private DateTime _birthDateTime;
+        /// <summary>
+        /// Поле, хранящее дату рождяния контакта
+        /// </summary>
+        private DateTime _dateOfBirth;
+        /// <summary>
+        /// Поле, хранящее эл. почту контакта
+        /// </summary>
         private string _mail;
+        /// <summary>
+        /// Поле, хранящее id ВК контакта
+        /// </summary>
         private long _vkID;
 
 
         /// <summary>
-        /// Возвращает номер контакта
+        /// Возвращает и задает номер контакта
         /// </summary>
         public PhoneNumber Number
         {
@@ -44,7 +59,9 @@ namespace ContactsApp
             {
                 if (value.Length > 50)
                 {
-                    throw new ArgumentException($"Поле Фамилии превышает 50 символов. Кол-во символов сейчас: {value.Length}" );
+                    throw new ArgumentException(
+                        $"Поле Фамилии превышает 50 символов. " +
+                        $"Кол-во символов сейчас: {value.Length}" );
                 }
                 _surname = value.ToUpper()[0] + value.Substring(1).ToLower();
 
@@ -64,7 +81,9 @@ namespace ContactsApp
             {
                 if (value.Length > 50)
                 {
-                    throw new ArgumentException($"Поле Имени превышает 50 символов. Кол-во символов сейчас: {value.Length}");
+                    throw new ArgumentException(
+                        $"Поле Имени превышает 50 символов. " +
+                        $"Кол-во символов сейчас: {value.Length}");
                 }
 
                 _name = value.ToUpper()[0] + value.Substring(1).ToLower();
@@ -74,14 +93,16 @@ namespace ContactsApp
         /// <summary>
         /// Возвращает и задает адрес эл. почты контакта. Длина адреса не должна превышать 50-ти символовю.
         /// </summary>
-        public string Mail
+        public string Mail //Email!, vmesto Mail
         {
             get { return _mail; }
             set
             {
                 if (value.Length > 50)
                 {
-                    throw new ArgumentException($"Поле Почты превышает 50 символов. Кол-во символов сейчас: {value.Length}");
+                    throw new ArgumentException(
+                        $"Поле Почты превышает 50 символов. " +
+                        $"Кол-во символов сейчас: {value.Length}");
                 }
 
                 _mail = value;
@@ -97,7 +118,9 @@ namespace ContactsApp
             set
             {
                 if (value.ToString().Length > 15)
-                    throw new ArgumentException($"Поле ВкID превышает 50 символов. Кол-во символов сейчас: {value.ToString().Length}");
+                    throw new ArgumentException(
+                        $"Поле ВкID превышает 50 символов. " +
+                        $"Кол-во символов сейчас: {value.ToString().Length}");
                 _vkID = value;
             }
         }
@@ -105,16 +128,19 @@ namespace ContactsApp
         /// <summary>
         /// Возвращает и задает день рождения контакта. Дата рождения должна быть в диапазоне от 1900г до настоящего времени.
         /// </summary>
-        public DateTime BirthDateTime
+        public DateTime DateOfBirth
         {
-            get { return _birthDateTime; }
+            get { return _dateOfBirth; }
             set
             {
                 if (value < new DateTime(1900, 1, 1) || value > DateTime.Now)
                 {
-                    throw new ArgumentException($"Дата должна входить в диапозон от 01.01.1900г до {DateTime.Now}. Введенная дата: {value} ");
+                    throw new ArgumentException(
+                        $"Дата должна входить в диапозон от 01.01.1900г " +
+                        $"до {DateTime.Now}." +
+                        $" Введенная дата: {value} ");
                 }
-                _birthDateTime = value;
+                _dateOfBirth = value;
             }
         }
         /// <summary>
@@ -123,21 +149,21 @@ namespace ContactsApp
         /// <param name="surname">Поле, хранящее фамилию контакта</param>
         /// <param name="name">Поле, хранящее имя контакта</param>
         /// <param name="number">Поле, хранящее номер контакта</param>
-        /// <param name="birthDateTime">Поле, хранящее дату рождения контакта</param>
+        /// <param name="dateOfBirth">Поле, хранящее дату рождения контакта</param>
         /// <param name="mail">Поле, хранящее эл. почту контакта</param>
         /// <param name="vkID">Поле, хранящее id ВК контакта</param>
-        public Contact(string surname, string name, PhoneNumber number, DateTime birthDateTime, string mail, long vkID)
+        public Contact(string surname, string name, PhoneNumber number, DateTime dateOfBirth, string mail, long vkID)
         {
 
             _surname = surname;
             _name = name;
             _number = number;
-            _birthDateTime = birthDateTime;
+            _dateOfBirth = dateOfBirth;
             _mail = mail;
             _vkID = vkID;
         }
         /// <summary>
-        /// Конструктор по умолчанию
+        /// Конструктор класса
         /// </summary>
         public Contact()
         {
@@ -155,7 +181,7 @@ namespace ContactsApp
                 Name = this.Name,
                 Surname = this.Surname,
                 Number = number,
-                BirthDateTime = this.BirthDateTime,
+                DateOfBirth = this.DateOfBirth,
                 Mail = this.Mail,
                 VkID = this.VkID
             };            

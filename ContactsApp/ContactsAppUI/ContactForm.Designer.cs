@@ -1,6 +1,6 @@
 ﻿namespace ContactsAppUI
 {
-    partial class AddEditForm
+    partial class ContactForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactForm));
             this.VkIdTextBox = new System.Windows.Forms.TextBox();
             this.MailTextBox = new System.Windows.Forms.TextBox();
             this.PhoneTextBox = new System.Windows.Forms.TextBox();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.SurnameTextBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.VkLabel = new System.Windows.Forms.Label();
+            this.EmailLabel = new System.Windows.Forms.Label();
+            this.PhoneLabel = new System.Windows.Forms.Label();
+            this.BirthdayLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.SurnameLabel = new System.Windows.Forms.Label();
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.BirthdayDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -75,35 +75,35 @@
             this.SurnameTextBox.Name = "SurnameTextBox";
             this.SurnameTextBox.TextChanged += new System.EventHandler(this.SurnameTextBox_TextChanged);
             // 
-            // label7
+            // VkLabel
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
+            resources.ApplyResources(this.VkLabel, "VkLabel");
+            this.VkLabel.Name = "VkLabel";
             // 
-            // label6
+            // EmailLabel
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
+            resources.ApplyResources(this.EmailLabel, "EmailLabel");
+            this.EmailLabel.Name = "EmailLabel";
             // 
-            // label5
+            // PhoneLabel
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.PhoneLabel, "PhoneLabel");
+            this.PhoneLabel.Name = "PhoneLabel";
             // 
-            // label4
+            // BirthdayLabel
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.BirthdayLabel, "BirthdayLabel");
+            this.BirthdayLabel.Name = "BirthdayLabel";
             // 
-            // label3
+            // NameLabel
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.NameLabel, "NameLabel");
+            this.NameLabel.Name = "NameLabel";
             // 
-            // label2
+            // SurnameLabel
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.SurnameLabel, "SurnameLabel");
+            this.SurnameLabel.Name = "SurnameLabel";
             // 
             // OkButton
             // 
@@ -125,25 +125,25 @@
             this.BirthdayDateTimePicker.Name = "BirthdayDateTimePicker";
             this.BirthdayDateTimePicker.ValueChanged += new System.EventHandler(this.BirthdayDateTimePicker_ValueChanged);
             // 
-            // AddEditForm
+            // ContactForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.NameTextBox);
             this.Controls.Add(this.BirthdayDateTimePicker);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.SurnameTextBox);
             this.Controls.Add(this.CancelButton);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.VkLabel);
+            this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.PhoneTextBox);
             this.Controls.Add(this.OkButton);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.EmailLabel);
+            this.Controls.Add(this.BirthdayLabel);
             this.Controls.Add(this.MailTextBox);
             this.Controls.Add(this.VkIdTextBox);
-            this.Controls.Add(this.label5);
-            this.Name = "AddEditForm";
+            this.Controls.Add(this.PhoneLabel);
+            this.Name = "ContactForm";
             this.Load += new System.EventHandler(this.AddEditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -156,12 +156,12 @@
         private System.Windows.Forms.TextBox PhoneTextBox;
         private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.TextBox SurnameTextBox;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label VkLabel;
+        private System.Windows.Forms.Label EmailLabel;
+        private System.Windows.Forms.Label PhoneLabel;
+        private System.Windows.Forms.Label BirthdayLabel;
+        private System.Windows.Forms.Label NameLabel;
+        private System.Windows.Forms.Label SurnameLabel;
         private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.DateTimePicker BirthdayDateTimePicker;

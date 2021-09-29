@@ -20,7 +20,7 @@ namespace ConsoleApp1
             two.Surname = "Udashkin";
             two.Name = "Uriy";
             two.Number = new PhoneNumber(78888888899);
-            two.BirthDateTime = new DateTime(2018, 03, 02);
+            two.DateOfBirth = new DateTime(2018, 03, 02);
             two.Mail = "Udav@mail.ru";
             two.VkID = 3331;
             Console.WriteLine($"Первый контакт: Surname: {one.Surname} Name: {one.Name} Number: {one.Number.Number} Mail: {one.Mail}");
@@ -79,6 +79,14 @@ namespace ConsoleApp1
             list2.RemoveAt(0);
             Console.WriteLine(list1.Count);
             Console.WriteLine(list2.Count);
+            Console.WriteLine("______________");
+
+            prog = ProjectManager.LoadFromFile("C:\\Users\\AlischRak9\\Desktop\\teta.notes");
+            prog2 = ProjectManager.LoadFromFile("C:\\Users\\AlischRak9\\Desktop\\teta.notes");
+            prog2.contactsList[0].Surname = "PPPPPPPPPPPP";
+            Console.WriteLine(prog.contactsList[0].Surname);
+
+
             Console.ReadLine();
 
         }
