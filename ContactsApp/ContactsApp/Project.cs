@@ -10,45 +10,54 @@ namespace ContactsApp
     public class Project
     {
         /// <summary>
-        /// 
+        /// Поле, хранящее список контактов
         /// </summary>
         public List<Contact> contactsList = new List<Contact>();
 
+        /// <summary>
+        /// Сортировка списка контактов
+        /// </summary>      
         public List<Contact> Sort()
         {
-            var list = contactsList;
-            list.Sort();
-            return list;
+            var sortedContacts = contactsList;
+            sortedContacts.Sort();
+            return sortedContacts;
         }
 
+        /// <summary>
+        /// Метод находит и возвращает список контактов, имещих в поле Surname или Name подстроку str
+        /// </summary>  
         public List<Contact> FindContacts(string str)
         {
-            List<Contact> list = new List<Contact>();
+            List<Contact> foundContacts = new List<Contact>();
             for (int i = 0; i < contactsList.Count; i++)
             {
                 if (contactsList[i].Surname.ToUpper().Contains(str.ToUpper()) ||
-                    contactsList[i].Name.ToUpper().Contains(str.ToUpper()))
+                        contactsList[i].Name.ToUpper().Contains(str.ToUpper()))
                 {
-                    list.Add(contactsList[i]);
+                    foundContacts.Add(contactsList[i]);
                 }
             }
-            list.Sort(); 
-            return list;
+            foundContacts.Sort(); 
+            return foundContacts;
         }
 
+        /// <summary>
+        /// Метод возвращает список контактов, у которых месяц и день в поле DateOfBirth совпадает с сегодняшней датой
+        /// </summary>        
         public List<Contact> ShowBirthdayPeople(DateTime birthday)
         {
-            List<Contact> list = new List<Contact>();
+            List<Contact> birthdayPeople = new List<Contact>();
             for (int i = 0; i < contactsList.Count; i++)
             {
                  if(contactsList[i].DateOfBirth.Month == birthday.Month && 
-                    contactsList[i].DateOfBirth.Day == birthday.Day)
+                        contactsList[i].DateOfBirth.Day == birthday.Day)
                 {
-                    list.Add(contactsList[i]);
+                    birthdayPeople.Add(contactsList[i]);
                 }
             }
 
-            return list;
+            return birthdayPeople;
         }
     }
 }

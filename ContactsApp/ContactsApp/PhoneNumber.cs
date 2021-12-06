@@ -3,12 +3,12 @@
 namespace ContactsApp
 {
 /// <summary>
-///     
+/// Класс, хранящий номер телефона
 /// </summary>
     public class PhoneNumber
     {
         /// <summary>
-        /// 
+        /// Поле, хранящее номер телефона
         /// </summary>
         private long _number;
 

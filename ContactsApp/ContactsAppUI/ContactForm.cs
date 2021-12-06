@@ -8,10 +8,9 @@ namespace ContactsAppUI
     public partial class ContactForm : Form
     {
         private Contact _contact = new Contact();
-        private Color backgroundColor = Color.White;
-        private Color warningBackgroundColor = Color.LightPink;
+        private Color _backgroundColor = Color.White;
+        private Color _warningBackgroundColor = Color.LightPink;
         
-
         public Contact Contact
         {
             get
@@ -27,39 +26,36 @@ namespace ContactsAppUI
                     SurnameTextBox.Text = value.Surname;
                     BirthdayDateTimePicker.Value = value.DateOfBirth;
                     PhoneTextBox.Text = value.Number.Number.ToString();
-                    MailTextBox.Text = value.Mail;
+                    MailTextBox.Text = value.EMail;
                     VkIdTextBox.Text = value.VkID.ToString();
                 }
             }
         }
+
         public ContactForm()
         {
             InitializeComponent();
-            _contact.DateOfBirth = new DateTime(2000, 1, 1);
-            
+            _contact.DateOfBirth = new DateTime(2000, 1, 1);            
         }
 
         private void SurnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            // Color.White вынести в константу, для удобного редактирования в будущем
-            SurnameTextBox.BackColor = backgroundColor;
+            SurnameTextBox.BackColor = _backgroundColor;
             try
-            {
-               
+            {               
                 _contact.Surname = this.SurnameTextBox.Text;
                 OkButton.Enabled = true;
-
             }
             catch
             {
-                SurnameTextBox.BackColor = warningBackgroundColor;                
+                SurnameTextBox.BackColor = _warningBackgroundColor;                
             }
             ErrorCheck();
         }
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            NameTextBox.BackColor = backgroundColor;
+            NameTextBox.BackColor = _backgroundColor;
             try
             {
                 _contact.Name = NameTextBox.Text;
@@ -67,28 +63,26 @@ namespace ContactsAppUI
             }
             catch
             {
-                NameTextBox.BackColor = warningBackgroundColor;                
+                NameTextBox.BackColor = _warningBackgroundColor;                
             }
             ErrorCheck();
         }
 
         private void OkButton_Click(object sender, EventArgs e)
-        {
-            
+        {            
             DialogResult = DialogResult.OK;
             this.Close(); 
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
-        {
-     
-            DialogResult = DialogResult.Cancel;
-            
+        {     
+            DialogResult = DialogResult.Cancel;         
             this.Close();
         }
 
         private void BirthdayDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
+            BirthdayDateTimePicker.CalendarTitleBackColor = _backgroundColor;
             try
             {
                 _contact.DateOfBirth = BirthdayDateTimePicker.Value;
@@ -96,7 +90,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                BirthdayDateTimePicker.CalendarTitleBackColor = warningBackgroundColor;                
+                BirthdayDateTimePicker.CalendarTitleBackColor = _warningBackgroundColor;                
                 Console.WriteLine(BirthdayDateTimePicker.CalendarTitleBackColor);
             }
             ErrorCheck();
@@ -104,7 +98,7 @@ namespace ContactsAppUI
 
         private void PhoneTextBox_TextChanged(object sender, EventArgs e)
         {
-            PhoneTextBox.BackColor = backgroundColor;
+            PhoneTextBox.BackColor = _backgroundColor;
             try
             {
                 _contact.Number = new PhoneNumber( Int64.Parse(PhoneTextBox.Text));
@@ -112,29 +106,29 @@ namespace ContactsAppUI
             }
             catch
             {
-                PhoneTextBox.BackColor = warningBackgroundColor;                
+                PhoneTextBox.BackColor = _warningBackgroundColor;                
             }
             ErrorCheck();
         }
 
         private void MailTextBox_TextChanged(object sender, EventArgs e)
         {
-            MailTextBox.BackColor = backgroundColor;
+            MailTextBox.BackColor = _backgroundColor;
             try
             {
-                _contact.Mail = MailTextBox.Text;
+                _contact.EMail = MailTextBox.Text;
                 OkButton.Enabled = true;
             }
             catch
             {
-                MailTextBox.BackColor = warningBackgroundColor;                
+                MailTextBox.BackColor = _warningBackgroundColor;                
             }
             ErrorCheck();
         }
 
         private void VkIdTextBox_TextChanged(object sender, EventArgs e)
         {
-            VkIdTextBox.BackColor = backgroundColor;
+            VkIdTextBox.BackColor = _backgroundColor;
             try
             {
                 _contact.VkID = Convert.ToInt64(VkIdTextBox.Text);
@@ -142,7 +136,7 @@ namespace ContactsAppUI
             }
             catch
             {
-                VkIdTextBox.BackColor = warningBackgroundColor;                
+                VkIdTextBox.BackColor = _warningBackgroundColor;                
             }
             ErrorCheck();
         }
@@ -150,58 +144,34 @@ namespace ContactsAppUI
         private void AddEditForm_Load(object sender, EventArgs e)
         {
             ErrorCheck();
-
         }
 
         private void ErrorCheck()
         {
             OkButton.Enabled = true;
-            // Сделать через один if с переносом строки. 
-            if (NameTextBox.BackColor == warningBackgroundColor)
+
+            if (NameTextBox.BackColor == _warningBackgroundColor ||
+                    SurnameTextBox.BackColor == _warningBackgroundColor ||
+                    PhoneTextBox.BackColor == _warningBackgroundColor ||
+                    BirthdayDateTimePicker.CalendarTitleBackColor == _warningBackgroundColor ||
+                    MailTextBox.BackColor == _warningBackgroundColor ||
+                    VkIdTextBox.BackColor == _warningBackgroundColor
+                )
             {
                 OkButton.Enabled = false;
             }
-            if (SurnameTextBox.BackColor == warningBackgroundColor)
+           
+            //-----------------------
+            if (SurnameTextBox.Text.Length == 0 ||
+                    NameTextBox.Text.Length == 0||
+                    PhoneTextBox.Text.Length == 0 ||
+                    MailTextBox.Text.Length == 0 ||
+                    VkIdTextBox.Text.Length == 0
+                )
             {
                 OkButton.Enabled = false;
             }
-            if (PhoneTextBox.BackColor == warningBackgroundColor)
-            {
-                OkButton.Enabled = false;
-            }
-            if (BirthdayDateTimePicker.CalendarTitleBackColor == warningBackgroundColor)
-            {
-                OkButton.Enabled = false;
-            }
-            if (MailTextBox.BackColor == warningBackgroundColor)
-            {
-                OkButton.Enabled = false;
-            }
-            if (VkIdTextBox.BackColor == warningBackgroundColor)
-            {
-                OkButton.Enabled = false;
-            }
-            //------------ Блокировка кнопки-----------
-            if (SurnameTextBox.Text.Length == 0)
-            {
-                OkButton.Enabled = false;
-            }
-            if (NameTextBox.Text.Length == 0)
-            {
-                OkButton.Enabled = false;
-            }
-            if (PhoneTextBox.Text.Length == 0)
-            {
-                OkButton.Enabled = false;
-            }
-            if (MailTextBox.Text.Length == 0)
-            {
-                OkButton.Enabled = false;
-            }
-            if (VkIdTextBox.Text.Length == 0)
-            {
-                OkButton.Enabled = false;
-            }
-        }        
+           
+        }
     }
 }

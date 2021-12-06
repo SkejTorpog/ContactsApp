@@ -27,7 +27,7 @@ namespace ContactsApp
         /// <summary>
         /// Поле, хранящее эл. почту контакта
         /// </summary>
-        private string _mail;
+        private string _email;
         /// <summary>
         /// Поле, хранящее id ВК контакта
         /// </summary>
@@ -93,9 +93,9 @@ namespace ContactsApp
         /// <summary>
         /// Возвращает и задает адрес эл. почты контакта. Длина адреса не должна превышать 50-ти символовю.
         /// </summary>
-        public string Mail //Email!, vmesto Mail
+        public string EMail
         {
-            get { return _mail; }
+            get { return _email; }
             set
             {
                 if (value.Length > 50)
@@ -105,7 +105,7 @@ namespace ContactsApp
                         $"Кол-во символов сейчас: {value.Length}");
                 }
 
-                _mail = value;
+                _email = value;
             }
         }
 
@@ -119,7 +119,7 @@ namespace ContactsApp
             {
                 if (value.ToString().Length > 15)
                     throw new ArgumentException(
-                        $"Поле ВкID превышает 50 символов. " +
+                        $"Поле ВкID превышает 15 символов. " +
                         $"Кол-во символов сейчас: {value.ToString().Length}");
                 _vkID = value;
             }
@@ -150,16 +150,15 @@ namespace ContactsApp
         /// <param name="name">Поле, хранящее имя контакта</param>
         /// <param name="number">Поле, хранящее номер контакта</param>
         /// <param name="dateOfBirth">Поле, хранящее дату рождения контакта</param>
-        /// <param name="mail">Поле, хранящее эл. почту контакта</param>
+        /// <param name="email">Поле, хранящее эл. почту контакта</param>
         /// <param name="vkID">Поле, хранящее id ВК контакта</param>
-        public Contact(string surname, string name, PhoneNumber number, DateTime dateOfBirth, string mail, long vkID)
+        public Contact(string surname, string name, PhoneNumber number, DateTime dateOfBirth, string email, long vkID)
         {
-
             _surname = surname;
             _name = name;
             _number = number;
             _dateOfBirth = dateOfBirth;
-            _mail = mail;
+            _email = email;
             _vkID = vkID;
         }
         /// <summary>
@@ -182,7 +181,7 @@ namespace ContactsApp
                 Surname = this.Surname,
                 Number = number,
                 DateOfBirth = this.DateOfBirth,
-                Mail = this.Mail,
+                EMail = this.EMail,
                 VkID = this.VkID
             };            
         }

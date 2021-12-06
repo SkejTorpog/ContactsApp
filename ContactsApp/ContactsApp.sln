@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsAppUI", "ContactsAppUI\ContactsAppUI.csproj", "{61DB6379-2F2C-4C2C-908E-EFBC449CE5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "ConsoleApp1\test.csproj", "{BDDF2E7D-A6EA-4C03-9B42-02AB2EF93728}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsApp", "ContactsApp\ContactsApp.csproj", "{41DA7711-4791-4655-890D-C3F9B50C1251}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsApp.UnitTests", "ContactsApp.UnitTests\ContactsApp.UnitTests.csproj", "{2D76E4F6-41BB-456E-B36B-48FB46FD0022}"
@@ -21,10 +19,6 @@ Global
 		{61DB6379-2F2C-4C2C-908E-EFBC449CE5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61DB6379-2F2C-4C2C-908E-EFBC449CE5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61DB6379-2F2C-4C2C-908E-EFBC449CE5D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDDF2E7D-A6EA-4C03-9B42-02AB2EF93728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDDF2E7D-A6EA-4C03-9B42-02AB2EF93728}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDDF2E7D-A6EA-4C03-9B42-02AB2EF93728}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDDF2E7D-A6EA-4C03-9B42-02AB2EF93728}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41DA7711-4791-4655-890D-C3F9B50C1251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41DA7711-4791-4655-890D-C3F9B50C1251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41DA7711-4791-4655-890D-C3F9B50C1251}.Release|Any CPU.ActiveCfg = Release|Any CPU

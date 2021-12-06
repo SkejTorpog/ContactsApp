@@ -15,7 +15,6 @@ namespace ContactsApp
         /// </summary>
         public static void SaveToFile(Project data, string filename)
         {
-
             JsonSerializer serializer = new JsonSerializer();
             using (StreamWriter sw = new StreamWriter(filename))
             using (JsonWriter writer = new JsonTextWriter(sw))
@@ -29,23 +28,21 @@ namespace ContactsApp
         /// </summary>
         public static Project LoadFromFile(string filename)
         {  
-
             try
             {
                 JsonSerializer serializer = new JsonSerializer();
                 using (StreamReader sr = new StreamReader(filename))
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
-                Project prog = new Project();
-                prog = (Project)serializer.Deserialize<Project>(reader);                
-                if (prog == null)             
-                {
-                    Project emptyProject = new Project();
-                    return emptyProject;
-                }
-                //return (Project)serializer.Deserialize<Project>(reader); Почему не работает?
-                // И выдает ошибку, если использовать (Project)serializer... вместо prog 
-                return prog;
+                    Project prog = new Project();
+                    prog = (Project)serializer.Deserialize<Project>(reader);
+                    if (prog == null)
+                    {
+                        Project emptyProject = new Project();
+                        return emptyProject;
+                    }
+
+                    return prog;
                 }
             }
             catch (Exception e)
