@@ -4,12 +4,20 @@ using System.Windows.Forms;
 using ContactsApp;
 
 namespace ContactsAppUI
-{
+{    
     public partial class ContactForm : Form
-    {
+    {        
         private Contact _contact = new Contact();
-        private Color _backgroundColor = Color.White;
-        private Color _warningBackgroundColor = Color.LightPink;
+        private readonly Color _backgroundColor = Color.White; 
+        private readonly Color _warningBackgroundColor = Color.LightPink;
+
+        //Поля, для проверки корректности текстбоксов
+        private bool _nameIsCorrect = false;
+        private bool _surnameIsCorrect = false;
+        private bool _birthdayDateIsCorrect = true;
+        private bool _phoneIsCorrect = false;
+        private bool _emailIsCorrect = false;
+        private bool _vkIdIsCorrect = false;
         
         public Contact Contact
         {
@@ -44,11 +52,12 @@ namespace ContactsAppUI
             try
             {               
                 _contact.Surname = this.SurnameTextBox.Text;
-                OkButton.Enabled = true;
+                _surnameIsCorrect = true;
             }
             catch
             {
-                SurnameTextBox.BackColor = _warningBackgroundColor;                
+                SurnameTextBox.BackColor = _warningBackgroundColor;
+                _surnameIsCorrect = false;
             }
             ErrorCheck();
         }
@@ -59,11 +68,12 @@ namespace ContactsAppUI
             try
             {
                 _contact.Name = NameTextBox.Text;
-                OkButton.Enabled = true;
+                _nameIsCorrect = true;
             }
             catch
             {
-                NameTextBox.BackColor = _warningBackgroundColor;                
+                NameTextBox.BackColor = _warningBackgroundColor;
+                _nameIsCorrect = false;
             }
             ErrorCheck();
         }
@@ -86,12 +96,12 @@ namespace ContactsAppUI
             try
             {
                 _contact.DateOfBirth = BirthdayDateTimePicker.Value;
-                OkButton.Enabled = true;
+                _birthdayDateIsCorrect = true;
             }
             catch
             {
-                BirthdayDateTimePicker.CalendarTitleBackColor = _warningBackgroundColor;                
-                Console.WriteLine(BirthdayDateTimePicker.CalendarTitleBackColor);
+                BirthdayDateTimePicker.CalendarTitleBackColor = _warningBackgroundColor;
+                _birthdayDateIsCorrect = false;
             }
             ErrorCheck();
         }
@@ -102,11 +112,12 @@ namespace ContactsAppUI
             try
             {
                 _contact.Number = new PhoneNumber( Int64.Parse(PhoneTextBox.Text));
-                OkButton.Enabled = true;
+                _phoneIsCorrect = true;
             }
             catch
             {
-                PhoneTextBox.BackColor = _warningBackgroundColor;                
+                PhoneTextBox.BackColor = _warningBackgroundColor;
+                _phoneIsCorrect = false;
             }
             ErrorCheck();
         }
@@ -117,11 +128,12 @@ namespace ContactsAppUI
             try
             {
                 _contact.EMail = MailTextBox.Text;
-                OkButton.Enabled = true;
+                _emailIsCorrect = true;
             }
             catch
             {
-                MailTextBox.BackColor = _warningBackgroundColor;                
+                MailTextBox.BackColor = _warningBackgroundColor;
+                _emailIsCorrect = false;
             }
             ErrorCheck();
         }
@@ -132,11 +144,12 @@ namespace ContactsAppUI
             try
             {
                 _contact.VkID = Convert.ToInt64(VkIdTextBox.Text);
-                OkButton.Enabled = true;
+                _vkIdIsCorrect = true;
             }
             catch
             {
-                VkIdTextBox.BackColor = _warningBackgroundColor;                
+                VkIdTextBox.BackColor = _warningBackgroundColor;
+                _vkIdIsCorrect = false;
             }
             ErrorCheck();
         }
@@ -146,21 +159,23 @@ namespace ContactsAppUI
             ErrorCheck();
         }
 
+        /// <summary>
+        /// Метод для блокировки кнопки Ок, если есть ошибки в текст боксах
+        /// </summary>
         private void ErrorCheck()
         {
             OkButton.Enabled = true;
 
-            if (NameTextBox.BackColor == _warningBackgroundColor ||
-                    SurnameTextBox.BackColor == _warningBackgroundColor ||
-                    PhoneTextBox.BackColor == _warningBackgroundColor ||
-                    BirthdayDateTimePicker.CalendarTitleBackColor == _warningBackgroundColor ||
-                    MailTextBox.BackColor == _warningBackgroundColor ||
-                    VkIdTextBox.BackColor == _warningBackgroundColor
-                )
+            if (_nameIsCorrect == false ||
+                _surnameIsCorrect == false ||
+                _phoneIsCorrect == false ||
+                _birthdayDateIsCorrect == false ||
+                _emailIsCorrect == false ||
+                _vkIdIsCorrect == false)
             {
                 OkButton.Enabled = false;
             }
-           
+            
             //-----------------------
             if (SurnameTextBox.Text.Length == 0 ||
                     NameTextBox.Text.Length == 0||
@@ -170,8 +185,7 @@ namespace ContactsAppUI
                 )
             {
                 OkButton.Enabled = false;
-            }
-           
+            }           
         }
     }
 }

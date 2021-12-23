@@ -10,32 +10,30 @@ namespace ContactsAppUI
 {
     public partial class MainForm : System.Windows.Forms.Form
     {
-        Project projectData = new Project();
-        List<Contact> contacts = new List<Contact>();
-        
-        string filename = "..\\..\\My Documents\\ContactsApp.notes"; // должно сохраняться через относительные пути в uppdata
-
+        private Project _projectData = new Project();
+        private List<Contact> _contacts = new List<Contact>();
+                
         public MainForm()
         {
             InitializeComponent();
            
             // Выгрузка сохраненных контактов            
-            projectData = ProjectManager.LoadFromFile(filename);
-            projectData.Sort();
+            _projectData = ProjectManager.LoadFromFile(ProjectManager.defaultFilename);
+            _projectData.Sort();
             // Цикл для вывода всех сохраненных в файле контактов на ЛистБокс
-            for (int i = 0; i < projectData.contactsList.Count; i++)
+            for (int i = 0; i < _projectData.Contacts.Count; i++)
             {
-                ContactsListBox.Items.Add(projectData.contactsList[i].Surname);
+                ContactsListBox.Items.Add(_projectData.Contacts[i].Surname);
             }            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (projectData != null)
+            if (_projectData.Contacts.Count != 0)
             {
                 ContactsListBox.SelectedIndex = 0;
             }
-            var birthdayPeople = projectData.ShowBirthdayPeople(DateTime.Now);
+            var birthdayPeople = _projectData.ShowBirthdayPeople(DateTime.Now);
             if (birthdayPeople.Count != 0)
             {                
                 string[] str = new string[birthdayPeople.Count];
@@ -48,79 +46,18 @@ namespace ContactsAppUI
         }
 
         private void AddContactButton_Click(object sender, EventArgs e)
-        {           
-            ContactForm contactForm = new ContactForm();
-            contactForm.ShowDialog();
-            
-            var surname = contactForm.Contact.Surname;
-            if (contactForm.DialogResult == DialogResult.OK)
-            {                              
-                projectData.contactsList.Add(contactForm.Contact);
-                projectData.Sort();
-                RefreshContactListBox();
-                //Сохранение после добавления контакта
-                ProjectManager.SaveToFile(projectData, filename); 
-            }
-            RefreshContactListBox();
+        {
+            AddContact();
         }        
 
         private void EditContactButton_Click(object sender, EventArgs e)
         {
-            Contact selectedData = new Contact();
-            Contact unupdatedData = new Contact();
-            var selectedIndex = ContactsListBox.SelectedIndex;
-
-            if (selectedIndex == -1 )
-            {
-                MessageBox.Show("Выберите контакт");
-                return;     
-            }
-
-            selectedData = FindTextBox.Text.Length == 0 ?
-                (Contact)projectData.contactsList[selectedIndex].Clone() : (Contact)contacts[selectedIndex].Clone();
-            unupdatedData = FindTextBox.Text.Length == 0 ?
-               projectData.contactsList[selectedIndex] : contacts[selectedIndex];       
-
-            ContactForm contactForm = new ContactForm();
-            contactForm.Contact = selectedData;
-            contactForm.ShowDialog();           
-
-            if (contactForm.DialogResult == DialogResult.OK)
-            {
-                var updatedData = contactForm.Contact;
-                projectData.contactsList.Remove(unupdatedData);
-                projectData.contactsList.Add(updatedData);
-                projectData.Sort();
-                RefreshContactListBox();                                     
-                
-                ProjectManager.SaveToFile(projectData, filename);
-                ContactsListBox.SelectedIndex = FindTextBox.Text.Length == 0 ?
-                    projectData.contactsList.IndexOf(updatedData) : contacts.IndexOf(updatedData);
-            }                      
+            EditContact();                       
         }
 
         private void RemoveContactButton_Click(object sender, EventArgs e)
         {
-            var selectedIndex = ContactsListBox.SelectedIndex;          
-            if (selectedIndex == -1)
-            {
-                MessageBox.Show("Вы не выбрали контакт");
-                return;
-            }
-
-            Contact selectedData = new Contact();
-            selectedData = FindTextBox.Text.Length != 0 ?
-                contacts[selectedIndex] : projectData.contactsList[selectedIndex];
-            DialogResult result = MessageBox.Show(
-                "Do you really want to delete " + selectedData.Surname, 
-                "Delete", MessageBoxButtons.OKCancel);
-
-            if (result == DialogResult.OK)
-            {
-                projectData.contactsList.Remove(selectedData);
-                RefreshContactListBox();
-                ProjectManager.SaveToFile(projectData, filename);               
-            }                      
+            RemoveContact();                     
         }
                
         private void RefreshContactListBox()
@@ -129,9 +66,9 @@ namespace ContactsAppUI
 
             if (FindTextBox.Text.Length == 0)
             {
-                for (int i = 0; i < projectData.contactsList.Count; i++)
+                for (int i = 0; i < _projectData.Contacts.Count; i++)
                 {
-                    ContactsListBox.Items.Add(projectData.contactsList[i].Surname);
+                    ContactsListBox.Items.Add(_projectData.Contacts[i].Surname);
                 }
             }
             else
@@ -151,7 +88,8 @@ namespace ContactsAppUI
             }
 
             var contact = FindTextBox.Text.Length == 0 ?
-                projectData.contactsList[selectedIndex] : contacts[selectedIndex];
+                _projectData.Contacts[selectedIndex] : 
+                _contacts[selectedIndex];
             
             SurnameTextBox.Text = contact.Surname;
             NameTextBox.Text = contact.Name;
@@ -163,27 +101,27 @@ namespace ContactsAppUI
 
         private void FindTextBox_TextChanged_1(object sender, EventArgs e)
         {
-            contacts = projectData.FindContacts(FindTextBox.Text);            
+            _contacts = _projectData.FindContacts(FindTextBox.Text);            
             ContactsListBox.Items.Clear();
-            for (int i = 0; i < contacts.Count; i++)
+            for (int i = 0; i < _contacts.Count; i++)
             {
-                ContactsListBox.Items.Add(contacts[i].Surname);
+                ContactsListBox.Items.Add(_contacts[i].Surname);
             }                        
         }
-
+        
         private void AddToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            AddContactButton_Click(sender, e);
+            AddContact();
         }
 
         private void EditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            EditContactButton_Click(sender, e);
+            EditContact();
         }
 
         private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RemoveContactButton_Click(sender, e);
+            RemoveContact();
         }
 
         private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -201,8 +139,85 @@ namespace ContactsAppUI
         {
             if (e.KeyCode == Keys.Delete)
             {
-                RemoveContactButton_Click(sender, e);
+                RemoveContact();
             }            
-        }       
+        }
+
+        private void AddContact()
+        {
+            ContactForm contactForm = new ContactForm();
+            contactForm.ShowDialog();
+
+            if (contactForm.DialogResult == DialogResult.OK)
+            {
+                _projectData.Contacts.Add(contactForm.Contact);
+                _projectData.Sort();
+                RefreshContactListBox();
+                //Сохранение после добавления контакта
+                ProjectManager.SaveToFile(_projectData, ProjectManager.defaultFilename);
+            }
+            RefreshContactListBox();
+        }
+
+        private void EditContact()
+        {
+            var selectedIndex = ContactsListBox.SelectedIndex;
+
+            if (selectedIndex == -1)
+            {
+                MessageBox.Show("Выберите контакт");
+                return;
+            }
+
+            var selectedData = FindTextBox.Text.Length == 0 ?
+                (Contact)_projectData.Contacts[selectedIndex].Clone() :
+                (Contact)_contacts[selectedIndex].Clone();
+            var unupdatedData = FindTextBox.Text.Length == 0 ?
+               _projectData.Contacts[selectedIndex] :
+               _contacts[selectedIndex];
+
+            ContactForm contactForm = new ContactForm();
+            contactForm.Contact = selectedData;
+            contactForm.ShowDialog();
+
+            if (contactForm.DialogResult == DialogResult.OK)
+            {
+                var updatedData = contactForm.Contact;
+                _projectData.Contacts.Remove(unupdatedData);
+                _projectData.Contacts.Add(updatedData);
+                _projectData.Sort();
+                RefreshContactListBox();
+
+                ProjectManager.SaveToFile(_projectData, ProjectManager.defaultFilename);
+                ContactsListBox.SelectedIndex = FindTextBox.Text.Length == 0 ?
+                    _projectData.Contacts.IndexOf(updatedData) :
+                    _contacts.IndexOf(updatedData);
+            }
+        }
+
+        private void RemoveContact()
+        {
+            var selectedIndex = ContactsListBox.SelectedIndex;
+            if (selectedIndex == -1)
+            {
+                MessageBox.Show("Вы не выбрали контакт");
+                return;
+            }
+
+            Contact selectedData = new Contact();
+            selectedData = FindTextBox.Text.Length != 0 ?
+                _contacts[selectedIndex] : 
+                _projectData.Contacts[selectedIndex];
+            DialogResult result = MessageBox.Show(
+                "Do you really want to delete " + selectedData.Surname,
+                "Delete", MessageBoxButtons.OKCancel);
+
+            if (result == DialogResult.OK)
+            {
+                _projectData.Contacts.Remove(selectedData);
+                RefreshContactListBox();
+                ProjectManager.SaveToFile(_projectData, ProjectManager.defaultFilename);
+            }
+        }        
     }
 }

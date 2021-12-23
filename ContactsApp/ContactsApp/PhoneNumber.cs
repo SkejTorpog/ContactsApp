@@ -2,9 +2,9 @@
 
 namespace ContactsApp
 {
-/// <summary>
-/// Класс, хранящий номер телефона
-/// </summary>
+    /// <summary>
+    /// Класс, хранящий номер телефона
+    /// </summary>
     public class PhoneNumber
     {
         /// <summary>
@@ -17,21 +17,25 @@ namespace ContactsApp
         /// </summary>
         public long Number
         {
-            get { return _number; }
+            get
+            {
+                return _number;
+            }
             set
             {
-                string num = value.ToString();
-                if (num.Length != 11 || num[0] != '7')
+                string number = value.ToString();
+                if (number.Length != 11 || number[0] != '7')
                 {
                     throw new ArgumentException(
                         $"Кол-во символов должно быть равно 11, и номер должен начинаться с 7. " +
-                        $"Введеное кол-во символов: {value.ToString().Length}," +
-                        $" первая цифра: {value.ToString()[0]} ");
+                        $"Введеное кол-во символов: {number.Length}," +
+                        $" первая цифра: {number[0]} ");
                 }
 
                 _number = value;
             }
         }
+
         /// <summary>
         /// Конструктор класса
         /// </summary>

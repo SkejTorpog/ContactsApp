@@ -86,7 +86,7 @@ namespace ContactsApp.UnitTests
         [Test(Description = "Присвоение неправильного id длиной больше 15 символов")]
         public void TestVkIdSet_Longer15Symbols()
         {
-            var wrongVkID = "0123456789123456";
+            var wrongVkID = "01234567891463456";
 
             Assert.Throws<ArgumentException>(
                 () => { _contact.VkID = Convert.ToInt64(wrongVkID); },
@@ -100,7 +100,7 @@ namespace ContactsApp.UnitTests
             _contact.Number = new PhoneNumber(expected);
             var actual = _contact.Number.Number;
 
-            Assert.AreEqual(new PhoneNumber(expected), actual, "Геттера Number возвращает неправильный номер телефона");
+            Assert.AreEqual(expected, actual, "Геттера Number возвращает неправильный номер телефона");
         }
 
         [TestCase("1234567890","Должно возникать исключение, если первый символ номера не 7",
@@ -109,7 +109,7 @@ namespace ContactsApp.UnitTests
             TestName = "Присвоение неправильного номера, больше 11 символов")]
         public void TestNumberSet_ArgumentException(string wrongNumber, string message)
         {
-            PhoneNumber number = new PhoneNumber(Convert.ToInt64(wrongNumber));
+            PhoneNumber number = new PhoneNumber(Int64.Parse(wrongNumber));
             Assert.Throws<ArgumentException>(
                 () => { _contact.Number = number; }, message);
         }

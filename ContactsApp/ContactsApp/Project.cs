@@ -12,14 +12,14 @@ namespace ContactsApp
         /// <summary>
         /// Поле, хранящее список контактов
         /// </summary>
-        public List<Contact> contactsList = new List<Contact>();
+        public List<Contact> Contacts { get; set; } = new List<Contact>();
 
         /// <summary>
         /// Сортировка списка контактов
         /// </summary>      
         public List<Contact> Sort()
         {
-            var sortedContacts = contactsList;
+            var sortedContacts = Contacts;
             sortedContacts.Sort();
             return sortedContacts;
         }
@@ -30,12 +30,12 @@ namespace ContactsApp
         public List<Contact> FindContacts(string str)
         {
             List<Contact> foundContacts = new List<Contact>();
-            for (int i = 0; i < contactsList.Count; i++)
+            for (int i = 0; i < Contacts.Count; i++)
             {
-                if (contactsList[i].Surname.ToUpper().Contains(str.ToUpper()) ||
-                        contactsList[i].Name.ToUpper().Contains(str.ToUpper()))
+                if (Contacts[i].Surname.ToUpper().Contains(str.ToUpper()) ||
+                        Contacts[i].Name.ToUpper().Contains(str.ToUpper()))
                 {
-                    foundContacts.Add(contactsList[i]);
+                    foundContacts.Add(Contacts[i]);
                 }
             }
             foundContacts.Sort(); 
@@ -48,12 +48,12 @@ namespace ContactsApp
         public List<Contact> ShowBirthdayPeople(DateTime birthday)
         {
             List<Contact> birthdayPeople = new List<Contact>();
-            for (int i = 0; i < contactsList.Count; i++)
+            for (int i = 0; i < Contacts.Count; i++)
             {
-                 if(contactsList[i].DateOfBirth.Month == birthday.Month && 
-                        contactsList[i].DateOfBirth.Day == birthday.Day)
+                 if(Contacts[i].DateOfBirth.Month == birthday.Month && 
+                        Contacts[i].DateOfBirth.Day == birthday.Day)
                 {
-                    birthdayPeople.Add(contactsList[i]);
+                    birthdayPeople.Add(Contacts[i]);
                 }
             }
 

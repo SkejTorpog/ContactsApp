@@ -10,11 +10,18 @@ namespace ContactsApp
     /// </summary>
     public class ProjectManager
     {
+        private static readonly string defaultFolder = Environment.
+            GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ContactsApp";
+
+        public static readonly string  defaultFilename = defaultFolder + "\\ContactsApp.notes";
+
         /// <summary>
         /// Сериализация
         /// </summary>
         public static void SaveToFile(Project data, string filename)
-        {
+        {                 
+            Directory.CreateDirectory(defaultFolder);
+            
             JsonSerializer serializer = new JsonSerializer();
             using (StreamWriter sw = new StreamWriter(filename))
             using (JsonWriter writer = new JsonTextWriter(sw))
@@ -34,15 +41,15 @@ namespace ContactsApp
                 using (StreamReader sr = new StreamReader(filename))
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    Project prog = new Project();
-                    prog = (Project)serializer.Deserialize<Project>(reader);
-                    if (prog == null)
+                    Project projectData = new Project();
+                    projectData = (Project)serializer.Deserialize<Project>(reader);
+                    if (projectData == null)
                     {
                         Project emptyProject = new Project();
                         return emptyProject;
                     }
 
-                    return prog;
+                    return projectData;
                 }
             }
             catch (Exception e)

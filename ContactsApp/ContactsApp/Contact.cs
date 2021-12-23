@@ -6,40 +6,47 @@ namespace ContactsApp
     /// <summary>
     /// Класс контакта, хранящий информацию о фамилии, имени, номере, дне рождения, почте и id вк.
     /// </summary>
-    public class Contact: ICloneable,IComparable
+    public class Contact : ICloneable, IComparable
     {
         /// <summary>
         /// Поле, хранящее фамилию контакта
         /// </summary>
         private string _surname;
+
         /// <summary>
         /// Поле, хранящее имя контакта
         /// </summary>
         private string _name;
+
         /// <summary>
         /// Поле, хранящее номер контакта
         /// </summary>
         private PhoneNumber _number;
+
         /// <summary>
         /// Поле, хранящее дату рождяния контакта
         /// </summary>
         private DateTime _dateOfBirth;
+
         /// <summary>
         /// Поле, хранящее эл. почту контакта
         /// </summary>
         private string _email;
+
         /// <summary>
         /// Поле, хранящее id ВК контакта
         /// </summary>
         private long _vkID;
-
 
         /// <summary>
         /// Возвращает и задает номер контакта
         /// </summary>
         public PhoneNumber Number
         {
-            get { return _number; }
+            get
+            {
+                return _number;
+            }
             set
             {
                 _number = value;
@@ -95,7 +102,10 @@ namespace ContactsApp
         /// </summary>
         public string EMail
         {
-            get { return _email; }
+            get
+            {
+                return _email;
+            }
             set
             {
                 if (value.Length > 50)
@@ -114,7 +124,10 @@ namespace ContactsApp
         /// </summary>
         public long VkID
         {
-            get { return _vkID; }
+            get
+            {
+                return _vkID;
+            }
             set
             {
                 if (value.ToString().Length > 15)
@@ -130,7 +143,10 @@ namespace ContactsApp
         /// </summary>
         public DateTime DateOfBirth
         {
-            get { return _dateOfBirth; }
+            get
+            {
+                return _dateOfBirth;
+            }
             set
             {
                 if (value < new DateTime(1900, 1, 1) || value > DateTime.Now)
@@ -143,6 +159,7 @@ namespace ContactsApp
                 _dateOfBirth = value;
             }
         }
+
         /// <summary>
         /// Конструктор для контакта
         /// </summary>
@@ -161,6 +178,7 @@ namespace ContactsApp
             _email = email;
             _vkID = vkID;
         }
+
         /// <summary>
         /// Конструктор класса
         /// </summary>
@@ -185,6 +203,7 @@ namespace ContactsApp
                 VkID = this.VkID
             };            
         }
+
         /// <summary>
         /// Метод для сравнения текущего объекта с объектом, переданным в качестве параметра "object o".
         /// </summary>
