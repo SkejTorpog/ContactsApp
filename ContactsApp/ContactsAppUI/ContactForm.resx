@@ -352,7 +352,7 @@
     <value>True</value>
   </data>
   <data name="BirthdayLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 70</value>
+    <value>19, 66</value>
   </data>
   <data name="BirthdayLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 13</value>

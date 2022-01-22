@@ -144,7 +144,8 @@
             this.Controls.Add(this.VkIdTextBox);
             this.Controls.Add(this.PhoneLabel);
             this.Name = "ContactForm";
-            this.Load += new System.EventHandler(this.AddEditForm_Load);
+            this.ShowIcon = false;
+            this.Load += new System.EventHandler(this.ContactForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

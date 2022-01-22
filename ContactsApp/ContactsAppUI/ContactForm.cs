@@ -153,12 +153,7 @@ namespace ContactsAppUI
             }
             ErrorCheck();
         }
-
-        private void AddEditForm_Load(object sender, EventArgs e)
-        {
-            ErrorCheck();
-        }
-
+      
         /// <summary>
         /// Метод для блокировки кнопки Ок, если есть ошибки в текст боксах
         /// </summary>
@@ -166,12 +161,12 @@ namespace ContactsAppUI
         {
             OkButton.Enabled = true;
 
-            if (_nameIsCorrect == false ||
-                _surnameIsCorrect == false ||
-                _phoneIsCorrect == false ||
-                _birthdayDateIsCorrect == false ||
-                _emailIsCorrect == false ||
-                _vkIdIsCorrect == false)
+            if (!_nameIsCorrect ||
+                    !_surnameIsCorrect ||
+                    !_phoneIsCorrect ||
+                    !_birthdayDateIsCorrect ||
+                    !_emailIsCorrect ||
+                    !_vkIdIsCorrect)
             {
                 OkButton.Enabled = false;
             }
@@ -181,11 +176,15 @@ namespace ContactsAppUI
                     NameTextBox.Text.Length == 0||
                     PhoneTextBox.Text.Length == 0 ||
                     MailTextBox.Text.Length == 0 ||
-                    VkIdTextBox.Text.Length == 0
-                )
+                    VkIdTextBox.Text.Length == 0)
             {
                 OkButton.Enabled = false;
             }           
+        }
+
+        private void ContactForm_Load(object sender, EventArgs e)
+        {
+            ErrorCheck();
         }
     }
 }

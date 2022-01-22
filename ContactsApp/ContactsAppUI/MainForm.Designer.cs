@@ -242,7 +242,7 @@ namespace ContactsAppUI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BirthdayDateTimePicker.Enabled = false;
-            this.BirthdayDateTimePicker.Location = new System.Drawing.Point(82, 54);
+            this.BirthdayDateTimePicker.Location = new System.Drawing.Point(82, 57);
             this.BirthdayDateTimePicker.MinimumSize = new System.Drawing.Size(150, 4);
             this.BirthdayDateTimePicker.Name = "BirthdayDateTimePicker";
             this.BirthdayDateTimePicker.Size = new System.Drawing.Size(188, 20);
@@ -275,7 +275,7 @@ namespace ContactsAppUI
             this.PhoneTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PhoneTextBox.Location = new System.Drawing.Point(82, 80);
+            this.PhoneTextBox.Location = new System.Drawing.Point(82, 83);
             this.PhoneTextBox.Name = "PhoneTextBox";
             this.PhoneTextBox.ReadOnly = true;
             this.PhoneTextBox.Size = new System.Drawing.Size(370, 20);
@@ -286,7 +286,7 @@ namespace ContactsAppUI
             this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameTextBox.Location = new System.Drawing.Point(82, 29);
+            this.NameTextBox.Location = new System.Drawing.Point(82, 31);
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.ReadOnly = true;
             this.NameTextBox.Size = new System.Drawing.Size(370, 20);
@@ -297,7 +297,7 @@ namespace ContactsAppUI
             this.SurnameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SurnameTextBox.Location = new System.Drawing.Point(82, 3);
+            this.SurnameTextBox.Location = new System.Drawing.Point(82, 5);
             this.SurnameTextBox.Name = "SurnameTextBox";
             this.SurnameTextBox.ReadOnly = true;
             this.SurnameTextBox.Size = new System.Drawing.Size(370, 20);
@@ -333,7 +333,7 @@ namespace ContactsAppUI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PhoneLabel.AutoSize = true;
-            this.PhoneLabel.Location = new System.Drawing.Point(35, 83);
+            this.PhoneLabel.Location = new System.Drawing.Point(35, 86);
             this.PhoneLabel.Name = "PhoneLabel";
             this.PhoneLabel.Size = new System.Drawing.Size(41, 13);
             this.PhoneLabel.TabIndex = 3;
@@ -357,7 +357,7 @@ namespace ContactsAppUI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(38, 32);
+            this.NameLabel.Location = new System.Drawing.Point(38, 34);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(38, 13);
             this.NameLabel.TabIndex = 1;
@@ -369,7 +369,7 @@ namespace ContactsAppUI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SurnameLabel.AutoSize = true;
-            this.SurnameLabel.Location = new System.Drawing.Point(24, 6);
+            this.SurnameLabel.Location = new System.Drawing.Point(24, 8);
             this.SurnameLabel.Name = "SurnameLabel";
             this.SurnameLabel.Size = new System.Drawing.Size(52, 13);
             this.SurnameLabel.TabIndex = 0;
@@ -459,7 +459,6 @@ namespace ContactsAppUI
             this.MinimumSize = new System.Drawing.Size(600, 375);
             this.Name = "MainForm";
             this.Text = "ContactApp";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
