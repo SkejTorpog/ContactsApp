@@ -24,7 +24,7 @@ namespace ContactsApp.UnitTests
 
             Assert.AreEqual(expected, actual, "Геттер Surname возвращает неправильную фамилию");
         }
-     
+    
         [TestCase("Смирнов-Смирнов-Смирнов-Смирнов-Смирнов-СмирновСмирнов-Смирнов-Смирнов-Смирнов", "Должно возникать исключение," +
             "если фамилия длинее 40 символов",
             TestName = "Присвоение неправильной фамилии больше 40 символов")]
@@ -102,18 +102,7 @@ namespace ContactsApp.UnitTests
 
             Assert.AreEqual(expected, actual, "Геттера Number возвращает неправильный номер телефона");
         }
-
-        [TestCase("1234567890","Должно возникать исключение, если первый символ номера не 7",
-            TestName = "Присвоение номера, начинающегося не с 7")]
-        [TestCase("71234567890366", "Должно возникать исключение, если кол-во символов больше 11",
-            TestName = "Присвоение неправильного номера, больше 11 символов")]
-        public void TestNumberSet_ArgumentException(string wrongNumber, string message)
-        {
-            PhoneNumber number = new PhoneNumber(Int64.Parse(wrongNumber));
-            Assert.Throws<ArgumentException>(
-                () => { _contact.Number = number; }, message);
-        }
-
+      
         [Test(Description = "Позитивный тест геттера DateOfBirth")]
         public void TestDateOfBirthGet_CorrectValue()
         {
@@ -133,6 +122,27 @@ namespace ContactsApp.UnitTests
             DateTime dateOfBirth = Convert.ToDateTime(wrongDateOfBirth);
             Assert.Throws<ArgumentException>(
                 () => { _contact.DateOfBirth = dateOfBirth; }, message);
+        }
+
+        [Test(Description = "Тест метода Clone")]
+        public void TestCloneContact()
+        {
+            PhoneNumber phoneNumber = new PhoneNumber(76661234564);
+            var contact = new Contact()
+            {
+                Name = "Joe",
+                Surname = "Barboro",
+                Number = phoneNumber,
+                DateOfBirth = new DateTime(2000, 1, 1),
+                VkID = 3234,
+                EMail = "wasd@mail.ru"
+            };
+
+            var expected = contact;
+            var actual = (Contact)contact.Clone();
+            
+            Assert.AreEqual(expected, actual, "Метод Clone копирует объект некорректно");
+            
         }
     }
 }

@@ -131,9 +131,11 @@ namespace ContactsApp
             set
             {
                 if (value.ToString().Length > 15)
+                {
                     throw new ArgumentException(
-                        $"Поле ВкID превышает 15 символов. " +
-                        $"Кол-во символов сейчас: {value.ToString().Length}");
+                          $"Поле ВкID превышает 15 символов. " +
+                          $"Кол-во символов сейчас: {value.ToString().Length}");
+                }
                 _vkID = value;
             }
         }
@@ -214,6 +216,26 @@ namespace ContactsApp
                 return this.Surname.CompareTo(p.Surname);
             else
                 throw new ArgumentException("Невозможно сравнить два объекта");
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Contact contact)
+            {
+                if (this.Name == contact.Name &&
+                    this.Surname == contact.Surname &&
+                    this.Number.Number == contact.Number.Number &&
+                    this.EMail == contact.EMail &&
+                    this.DateOfBirth == contact.DateOfBirth &&
+                    this.VkID == contact.VkID)
+                { return true; }
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

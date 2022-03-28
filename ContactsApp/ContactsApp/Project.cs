@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace ContactsApp
@@ -58,6 +59,6 @@ namespace ContactsApp
             }
 
             return birthdayPeople;
-        }
+        }        
     }
 }
